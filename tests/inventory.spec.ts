@@ -11,12 +11,11 @@ test.describe('Inventory (Main) Page related tests', () => {
         inventoryPage = new InventoryPage(page);
                 
         // login which automatically redirects to inventory page
-        await page.goto('/');
         await loginPage.login('standard_user', 'secret_sauce');
                 
         // ensure that product items are visible before assertions.
         await page.waitForSelector('.inventory_item');
-    })
+    });
 
 
     test('Product items visible on the Inventory Page', async () => {

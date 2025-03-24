@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { InventoryPage } from '../src/pages/InventoryPage';
+import { InventoryItem } from '../src/pages/InventoryItem';
 import { LoginPage } from '../src/pages/LoginPage';
 import { users } from '../src/utils/loadEnv';
+import { CartPage } from '../src/pages/CartPage';
 
 test.describe('Inventory (Main) Page related tests', () => {
     let inventoryPage: InventoryPage;
@@ -13,6 +15,9 @@ test.describe('Inventory (Main) Page related tests', () => {
                 
         // login which automatically redirects to inventory page
         await loginPage.login(users.standard_user, users.password);
+
+        // Reset app state
+        await inventoryPage.resetAppState();
                 
         // ensure that product items are visible before assertions.
         await page.waitForSelector('.inventory_item');
@@ -59,4 +64,21 @@ test.describe('Inventory (Main) Page related tests', () => {
         firstItemTitle = await inventoryPage.getFirstItemTitle();
         expect(firstItemTitle).toBe('Sauce Labs Fleece Jacket');
     });
+
+    test('Add all items to the cart, then remove one from the cart and continue shopping', async ({ page }) => {
+        const inventoryItem = new InventoryItem(page);
+        inventoryItem.addAllItemsToCart();
+        await expect(inventoryPage.cartBadge).toHaveText('6');
+        await inventoryPage.goToTheCart();
+
+        const cartPage = new CartPage(page);
+        await cartPage.waitForLoad();
+        await cartPage.removeFirstItem();
+
+        await expect(inventoryPage.cartBadge).toHaveText('5');
+        await cartPage.continueShopingBtn.click();
+
+        await expect(page).toHaveURL(/.*inventory\.html/);
+    });
+    
 });

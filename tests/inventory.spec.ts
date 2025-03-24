@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { InventoryPage } from '../pages/InventoryPage';
-import { LoginPage } from '../pages/LoginPage';
+import { InventoryPage } from '../src/pages/InventoryPage';
+import { LoginPage } from '../src/pages/LoginPage';
 
 test.describe('Inventory (Main) Page related tests', () => {
     let inventoryPage: InventoryPage;

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { InventoryItem } from '../pages/InventoryItem';
-import { LoginPage } from '../pages/LoginPage';
+import { InventoryItem } from '../src/pages/InventoryItem';
+import { LoginPage } from '../src/pages/LoginPage';
 
 test.describe('Inventory Item details page tests', () => {
     let inventoryItem: InventoryItem;

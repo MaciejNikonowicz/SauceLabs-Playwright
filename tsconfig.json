@@ -9,6 +9,6 @@
       "skipLibCheck": true,
       "outDir": "dist"
     },
-    "include": ["tests", "pages"]
+    "include": ["tests", "src/pages"]
   }
   

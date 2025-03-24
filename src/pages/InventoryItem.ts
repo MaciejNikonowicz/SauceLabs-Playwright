@@ -1,24 +1,22 @@
 import { Locator, Page } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class InventoryItem {
+export class InventoryItem extends BasePage {
     readonly page: Page;
     readonly itemName: Locator;
     readonly itemDesc: Locator;
     readonly itemPrice: Locator;
     readonly itemImg: Locator;
     readonly addToCartBtn: Locator;
-    readonly cartIcon: Locator;
-    readonly cartBadge: Locator;
     
     constructor(page: Page) {
+        super(page);
         this.page = page;
         this.itemName = page.locator('[data-test="inventory-item-name"]');
         this.itemDesc = page.locator('[data-test="inventory-item-desc"]');
         this.itemPrice = page.locator('[data-test="inventory-item-price"]');
         this.itemImg = page.locator('[data-test="item-sauce-labs-backpack-img"]');
-        this.addToCartBtn = page.locator('[data-test="add-to-cart"]');
-        this.cartIcon = page.locator('[data-test="shopping-cart-link"]');
-        this.cartBadge = page.locator('[data-test="shopping-cart-badge"]');
+        this.addToCartBtn = page.locator('button', { hasText: 'Add to cart' });
     }
 
     async goToItemId(id: number | string) {

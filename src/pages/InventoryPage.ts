@@ -1,6 +1,7 @@
 import { Page, Locator } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class InventoryPage {
+export class InventoryPage extends BasePage {
     readonly page: Page;
     readonly productItems: Locator;
     readonly productTitles: Locator;
@@ -8,6 +9,7 @@ export class InventoryPage {
     readonly productSortContainer: Locator;
 
     constructor(page: Page) {
+        super(page);
         this.page = page;
         // Locator for each product container on the inventory page
         this.productItems = page.locator('.inventory_item');

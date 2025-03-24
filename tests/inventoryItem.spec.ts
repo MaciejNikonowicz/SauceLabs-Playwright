@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { InventoryItem } from '../src/pages/InventoryItem';
 import { LoginPage } from '../src/pages/LoginPage';
+import { users } from '../src/utils/loadEnv';
 
 test.describe('Inventory Item details page tests', () => {
     let inventoryItem: InventoryItem;
@@ -11,7 +12,7 @@ test.describe('Inventory Item details page tests', () => {
         inventoryItem = new InventoryItem(page);
                     
         // login and go to Sauce Labs Backpack details page
-        await loginPage.login('standard_user', 'secret_sauce');
+        await loginPage.login(users.standard_user, users.password);
         await inventoryItem.goToItemId(4);
     });
 

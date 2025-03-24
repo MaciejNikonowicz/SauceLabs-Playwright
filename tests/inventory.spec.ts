@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { InventoryPage } from '../src/pages/InventoryPage';
 import { LoginPage } from '../src/pages/LoginPage';
+import { users } from '../src/utils/loadEnv';
 
 test.describe('Inventory (Main) Page related tests', () => {
     let inventoryPage: InventoryPage;
@@ -11,7 +12,7 @@ test.describe('Inventory (Main) Page related tests', () => {
         inventoryPage = new InventoryPage(page);
                 
         // login which automatically redirects to inventory page
-        await loginPage.login('standard_user', 'secret_sauce');
+        await loginPage.login(users.standard_user, users.password);
                 
         // ensure that product items are visible before assertions.
         await page.waitForSelector('.inventory_item');
